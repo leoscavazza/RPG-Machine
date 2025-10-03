@@ -1,0 +1,301 @@
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Bases - RPG Machine</title>
+
+    <!-- 
+        AUTOR: Leonardo Ferraz Scavazza
+        REFERENCIAS: Matheus Matos
+    -->
+
+    <!-- Estilo CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(Imagens/imagem\ vila.jpeg);
+            background-color: rgb(0, 0, 0, 0.4);
+            background-blend-mode: darken;
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;    
+        }
+
+        /* Contêiner da Machine */
+        #container {
+            display: none 
+        }
+
+        /* Contêiner da página inicial */
+        #introducao {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: solid 3px #18a036;
+            width: auto;
+            height: auto;
+            color: #b2984f;
+            background-color: rgb(16, 23, 39, 0.8);
+            padding: 10px;
+            border-radius: 20px;
+            margin-bottom: 100px;
+        }
+
+        #entradas {
+            display: flex;
+            flex-direction: row;
+            align-items: center[];
+        }
+
+        #unidades h3 {
+            color: #ad6829;
+        }
+
+        #unidades label {
+            color: #ad6829;
+        }
+
+
+        /* estilo para o cabeçalho */
+        img {
+            width: 250px;
+        }
+
+        /* estilo para a entrada de texto */
+        input[type="text"] {
+            padding: 8px;
+            /* define o preenchimento interno */
+            font-size: 16px;
+            /* define o tamanho da fonte */
+            border-radius: 5px;
+            /* define o raio das bordas */
+
+        }
+
+        /* Seleção e botão */
+        select,
+        button {
+            padding: 8px;
+            /* define o preenchimento interno */
+            font-size: 16px;
+            /* define o tamanho da fonte */
+            border-radius: 5px;
+            /* define o raio das bordas */
+            cursor: pointer;
+            /* altera o cursor ao passar por cima */
+            color: #551998;
+        }
+
+        /* estilo para o botão */
+        button {
+            background-color: #551998;
+            /* define a cor de fundo do botão */
+            color: #FFFFFF;
+            /* define a cor do texto do botão */
+            border: none;
+            /* remove a borda do botão */
+        }
+
+        /* estilo para o botão ao passar o mouse por cima */
+        button:hover {
+            background-color: #EFB661;
+            /* altera a cor de fundo ao passar o mouse */
+        }
+
+        /* estilo para a saída de resultados */
+        #output {
+            margin-top: 20px;
+            /* define a margem superior */
+            padding: 5px;
+            /* define o preenchimento interno */
+            border-radius: 5px;
+            /* define o raio das bordas */
+            background-color: #D0D3D4;
+            /* define a cor de fundo */
+            border: 1px solid #63666A;
+            /* define a borda */
+            text-align: left;
+            /* alinha o texto à esquerda */
+            display: none;
+            /* inicialmente oculta a saída */
+            color: #551998;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Primeira parte -->
+
+    <!-- contêiner inicial -->
+    <div id="introducao">
+        <img src="Imagens/RPG Machine.png" alt="RPG Machine">
+            <p><b>Olá! Seja muito bem vindo a RPG Machine! <br>
+            A RPG machine é um conversor entre 4 unidades, 
+            <br>sendo elas decimal, hexadecimal, octal e binario</b></p>
+            <p><b>Clique no botão abaixo para mergulhar no mundo do RPG <br>
+            e visitar a nossa vila de conversão!</b></p>
+
+        <button onclick="rpg()"><b>RPG machine</b></button>
+            <h5><b>Aperte o play e relaxe!</b></h5>
+        <!-- Música -->
+        <audio controls id="audio1">
+            <source src="Audios/aquatic ambience (slowed + reverb) - Scizzie (youtube).mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Div para executar o script da function rpg -->
+    <div id="div_msg"></div>
+
+    <!-- Segunda parte -->
+
+    <!-- Contêiner Machine -->
+    <div id="container">
+        <img src="Imagens/RPG Machine.png" alt="RPG Machine">
+            <div id="entradas">
+                <!-- entrada de valor -->
+                <input id="inputValue" type="text" placeholder="Digite o valor">
+                    <!-- seleção da base -->
+                    <select id="inputBase">
+                        <option value="decimal">Decimal</option>
+                        <option value="hexadecimal">Hexadecimal</option>
+                        <option value="octal">Octal</option>
+                        <option value="binario">Binário</option>
+                    </select>
+            </div>
+        <br><br>
+        
+        <!-- opções de conversão -->
+        <div id="unidades">
+            <h3>Converter para:</h3>
+                <input type="checkbox" id="convertDecimal"><label for="convertDecimal">Decimal</label>
+                <input type="checkbox" id="convertHexadecimal"><label for="convertHexadecimal">Hexadecimal</label>
+                <input type="checkbox" id="convertOctal"><label for="convertOctal">Octal</label>
+                <input type="checkbox" id="convertBinario"><label for="convertBinario">Binário</label>
+        </div>
+        <br><br>
+
+        <!-- botão de conversão -->
+        <button onclick="converter()">Converter</button>
+            <!-- saída de resultados -->
+            <div id="output"></div>
+                <h5 style="color: #ad6829;"><b>Sinta a vibe da conversão, aperte o play!</b></h5>
+                <!-- Música -->
+                <audio controls>
+                    <source src="Audios/Hide - Dorian Concept (Slowed x Reverbed) - Motheory (youtube).mp3" type="audio/mpeg">
+                </audio>
+    </div>
+
+
+    <!-- script javascript -->
+    <script>
+        function rpg() {
+            // O none nesse caso irá desabilitar o style do background image
+            document.body.style.backgroundImage = "none";
+            // Após desabilitar, ele irá atribuir uma nova imagem ao background image 
+            document.body.style.backgroundImage = "url('Imagens/imagem\ lago.png')";
+            // Atribuindo o style para habilitar a machine
+            div_msg.innerHTML = `<style>
+
+                #introducao {
+                    display: none;
+                }
+
+                #container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                    border: solid 3px #18a036;
+                    width: auto; 
+                    height: auto;
+                    background-color: rgb(16, 23, 39, 0.8);
+                    padding: 10px;
+                    border-radius: 20px;
+                    margin-bottom: 100px;
+                }
+
+                body {
+                    background-image: url(Imagens/imagem\ lago.png);/* 
+                    background-color: rgb(0, 0, 0, 0.4);
+                    background-blend-mode: darken;
+                }
+
+            </style>`
+
+            // Parar o audio assim que o botão da função for clicado
+            const audio = document.getElementById('audio1');
+            audio.pause();
+        }
+
+        // função para converter os valores
+        function converter() {
+
+            // Receber os valoores das inputs - Valor - Base
+            var inputValue = document.getElementById('inputValue').value; // obtém o valor de entrada
+            var inputBase = document.getElementById('inputBase').value; // obtém a base de entrada
+
+            // valida a entrada de acordo com a base selecionada
+            if (!validarEntrada(inputValue, inputBase)) {
+                alert('Por favor, insira um número válido para a base selecionada.');
+                return;
+            }
+
+            // converte o valor para decimal, com base na base de entrada selecionada
+            var decimalValue = parseInt(inputValue, inputBase === 'hexadecimal' ? 16 : inputBase === 'octal' ? 8 : inputBase === 'binario' ? 2 : 10);
+            var outputHTML = ''; // inicializa a variável para armazenar o html de saída
+
+            // verifica se cada opção de conversão está selecionada e adiciona o resultado ao html de saída
+            if (document.getElementById('convertDecimal').checked) {
+                output.style.display = 'block'; // exibe a saída
+                outputHTML += `<p><b>Decimal: ${decimalValue}</b></p>`; // adiciona o resultado ao html
+            }
+            if (document.getElementById('convertHexadecimal').checked) {
+                output.style.display = 'block'; // exibe a saída
+                outputHTML += `<p><b>Hexadecimal: ${decimalValue.toString(16).toUpperCase()}</b></p>`; // converte para hexadecimal e adiciona ao html
+            }
+            if (document.getElementById('convertOctal').checked) {
+                output.style.display = 'block'; // exibe a saída
+                outputHTML += `<p><b>Octal: ${decimalValue.toString(8)}</b></p>`; // converte para octal e adiciona ao html
+            }
+            if (document.getElementById('convertBinario').checked) {
+                output.style.display = 'block'; // exibe a saída
+                outputHTML += `<p><b>Binário: ${decimalValue.toString(2)}</b></p>`; // converte
+            }
+            document.getElementById('output').innerHTML = outputHTML; // atualiza o conteúdo da saída com o html gerado
+        }
+
+        // Função para validar a entrada de acordo com a base selecionada
+        function validarEntrada(inputValue, inputBase) {
+
+            var validChars = ''; // String para armazenar os caracteres válidos
+
+            // Determina os caracteres válidos com base na base selecionada
+            if (inputBase === 'decimal') {
+                validChars = '0123456789'; // Para base decimal, são válidos os dígitos de 0 a 9
+            } else if (inputBase === 'hexadecimal') {
+                validChars = '0123456789ABCDEFabcdef'; // Para base hexadecimal, são válidos os dígitos de 0 a 9 e as letras de A a F
+            } else if (inputBase === 'octal') {
+                validChars = '01234567'; // Para base octal, são válidos os dígitos de 0 a 7
+            } else if (inputBase === 'binario') {
+                validChars = '01'; // Para base binária, são válidos os dígitos 0 e 1
+            }
+
+            // Verifica se cada caractere da entrada está presente na lista de caracteres válidos
+            for (var i = 0; i < inputValue.length; i++) {
+                if (validChars.indexOf(inputValue[i]) === -1) { // Se o caractere não for encontrado na lista de caracteres válidos
+                    return false; // Retorna falso indicando que a entrada é inválida
+                }
+            }
+            return true; // Retorna verdadeiro indicando que a entrada é válida
+        }
+    </script>
+
+</body>
+</html>
