@@ -1,103 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Conversor de Bases - RPG Machine</title>
-    <!-- 
-        AUTOR: Leonardo Ferraz Scavazza
-        REFERÊNCIAS: Matheus Matos
-    -->
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url(Imagens/imagem\ vila.jpeg);
-            background-color: rgba(0, 0, 0, 0.4);
-            background-blend-mode: darken;
-            margin-top: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Contêiner da Machine */
-        #container {
-            display: none;
-        }
-
-        /* Contêiner da página inicial */
-        #introducao {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            border: 3px solid #18a036;
-            background-color: rgba(16, 23, 39, 0.8);
-            color: #b2984f;
-            padding: 10px;
-            border-radius: 20px;
-            margin-bottom: 100px;
-        }
-
-        #entradas {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-
-        #unidades h3 {
-            color: #ad6829;
-        }
-
-        #unidades label {
-            color: #ad6829;
-        }
-
-        img {
-            width: 250px;
-        }
-
-        input[type="text"] {
-            padding: 8px;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-
-        select,
-        button {
-            padding: 8px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            color: #551998;
-        }
-
-        button {
-            background-color: #551998;
-            color: #ffffff;
-            border: none;
-        }
-
-        button:hover {
-            background-color: #efb661;
-        }
-
-        #output {
-            margin-top: 20px;
-            padding: 5px;
-            border-radius: 5px;
-            background-color: #d0d3d4;
-            border: 1px solid #63666a;
-            text-align: left;
-            display: none;
-            color: #551998;
-        }
-    </style>
+    <link rel="stylesheet" href="CSS/RPG Machine.css">
 </head>
 
+<!-- 
+    AUTOR: Leonardo Ferraz Scavazza
+    REFERÊNCIAS: Matheus Matos
+-->
+
 <body>
-    <!-- Parte inicial / introdução -->
+
+    <!-- Primeira parte -->
+    
+    <!-- Container inicial -->
     <div id="introducao">
         <img src="Imagens/RPG Machine.png" alt="RPG Machine" />
         <p><strong>Olá! Seja muito bem vindo a RPG Machine!<br>
@@ -114,7 +35,9 @@
 
     <div id="div_msg"></div>
 
-    <!-- Contêiner da ferramenta de conversão -->
+    <!-- Segunda parte -->
+
+    <!-- Contâiner Machine -->
     <div id="container">
         <img src="Imagens/RPG Machine.png" alt="RPG Machine" />
         <div id="entradas">
@@ -126,7 +49,10 @@
                 <option value="binario">Binário</option>
             </select>
         </div>
-        <br /><br />
+
+        <br><br>
+
+        <!-- Opções de conversão -->
         <div id="unidades">
             <h3>Converter para:</h3>
             <input type="checkbox" id="convertDecimal" /><label for="convertDecimal">Decimal</label>
@@ -134,7 +60,10 @@
             <input type="checkbox" id="convertOctal" /><label for="convertOctal">Octal</label>
             <input type="checkbox" id="convertBinario" /><label for="convertBinario">Binário</label>
         </div>
-        <br /><br />
+
+        <br><br>
+
+        <!-- Botão de conversão -->
         <button onclick="converter()">Converter</button>
         <div id="output"></div>
         <h5 style="color: #ad6829;"><strong>Sinta a vibe da conversão, aperte o play!</strong></h5>
@@ -143,94 +72,8 @@
         </audio>
     </div>
 
-    <script>
-        function rpg() {
-            document.body.style.backgroundImage = "none";
-            document.body.style.backgroundImage = "url('Imagens/imagem\\ lago.png')";
-
-            div_msg.innerHTML = `
-                <style>
-                    #introducao { display: none; }
-                    #container {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        text-align: center;
-                        border: 3px solid #18a036;
-                        background-color: rgba(16, 23, 39, 0.8);
-                        padding: 10px;
-                        border-radius: 20px;
-                        margin-bottom: 100px;
-                    }
-                    body {
-                        background-image: url(Imagens/imagem\\ lago.png);
-                    }
-                </style>
-            `;
-
-            const audio = document.getElementById('audio1');
-            audio.pause();
-        }
-
-        function converter() {
-            const inputValue = document.getElementById('inputValue').value;
-            const inputBase = document.getElementById('inputBase').value;
-
-            if (!validarEntrada(inputValue, inputBase)) {
-                alert('Por favor, insira um número válido para a base selecionada.');
-                return;
-            }
-
-            const decimalValue = parseInt(
-                inputValue,
-                inputBase === 'hexadecimal' ? 16
-                    : inputBase === 'octal' ? 8
-                    : inputBase === 'binario' ? 2
-                    : 10
-            );
-
-            let outputHTML = '';
-
-            if (document.getElementById('convertDecimal').checked) {
-                document.getElementById('output').style.display = 'block';
-                outputHTML += `<p><strong>Decimal: ${decimalValue}</strong></p>`;
-            }
-            if (document.getElementById('convertHexadecimal').checked) {
-                document.getElementById('output').style.display = 'block';
-                outputHTML += `<p><strong>Hexadecimal: ${decimalValue.toString(16).toUpperCase()}</strong></p>`;
-            }
-            if (document.getElementById('convertOctal').checked) {
-                document.getElementById('output').style.display = 'block';
-                outputHTML += `<p><strong>Octal: ${decimalValue.toString(8)}</strong></p>`;
-            }
-            if (document.getElementById('convertBinario').checked) {
-                document.getElementById('output').style.display = 'block';
-                outputHTML += `<p><strong>Binário: ${decimalValue.toString(2)}</strong></p>`;
-            }
-
-            document.getElementById('output').innerHTML = outputHTML;
-        }
-
-        function validarEntrada(inputValue, inputBase) {
-            let validChars = '';
-
-            if (inputBase === 'decimal') {
-                validChars = '0123456789';
-            } else if (inputBase === 'hexadecimal') {
-                validChars = '0123456789ABCDEFabcdef';
-            } else if (inputBase === 'octal') {
-                validChars = '01234567';
-            } else if (inputBase === 'binario') {
-                validChars = '01';
-            }
-
-            for (let i = 0; i < inputValue.length; i++) {
-                if (validChars.indexOf(inputValue[i]) === -1) {
-                    return false;
-                }
-            }
-            return true;
-        }
-    </script>
+    <script src="JavaScript/RPG machine.js"></script>
+    
 </body>
+
 </html>

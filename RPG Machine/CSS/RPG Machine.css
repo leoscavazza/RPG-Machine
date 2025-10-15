@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(../Imagens/imagem%20vila.jpeg);
+    background-color: rgba(0, 0, 0, 0.4);
+    background-blend-mode: darken;
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container da Machine */
+#container {
+    display: none;
+}
+
+/* Container da página inicial */
+#introducao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 3px solid #18a036;
+    background-color: rgba(16, 23, 39, 0.8);
+    color: #b2984f;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 100px;
+}
+
+#entradas {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#unidades h3 {
+    color: #ad6829;
+}
+
+#unidades label {
+    color: #ad6829;
+}
+
+img {
+    width: 250px;
+}
+
+/* Estilo para a entrada de texto */
+input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* Seleção e botão */
+select,
+button {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #551998;
+}
+
+/* Estilo para o botão */
+button {
+    background-color: #551998;
+    color: #ffffff;
+    border: none;
+}
+
+/* Estilo para o botão ao passar o mouse por cima */
+button:hover {
+    background-color: #efb661;
+}
+
+/* Estilo para a saída de resultados */
+#output {
+    margin-top: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #d0d3d4;
+    border: 1px solid #63666a;
+    text-align: left;
+    display: none;
+    color: #551998;
+}
